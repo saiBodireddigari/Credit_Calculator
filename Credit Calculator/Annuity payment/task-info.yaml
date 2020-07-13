@@ -144,5 +144,9 @@ files:
             print("Your monthly payment = {} with last month payment = {}.".format(str(rounded_figure), str(last_payment)))
   learner_created: false
 feedback_link: https://hyperskill.org/projects/90/stages/502/implement
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/90/stages/502/implement">JetBrains
+    Academy</a>
+  time: Mon, 13 Jul 2020 14:21:58 UTC
 record: -1

@@ -1,34 +1,49 @@
 import math
 
-print("Enter the credit principal: ")
-principal = int(input())
+menu = input("""What do you want to calculate?
+type 'n' - for count of months,
+type 'a' - for annuity monthly payment,
+type 'p' - for monthly payment:
+""")
 
-print("""What do you want to calculate?
-type 'm' - for count of months,
-type 'p' - for monthly payment:""")
+if menu == "n":
 
-months_or_payment = input()
+    credit_principal = int(input("Enter credit principal:\n"))
+    monthly_payment = float(input("Enter monthly payment:\n"))
+    credit_interest = float(input("Enter credit principal:\n"))
 
-if months_or_payment == "m":
-    print("Enter monthly payment:")
-    monthly_payment = int(input())
+    interest = (1/12) * (credit_interest / 100)
+    months_count = math.log(monthly_payment / (monthly_payment - interest * credit_principal), 1 + interest)
+    years = round(months_count / 12)
 
-    number_of_months = principal / monthly_payment
+    if round(months_count / 12) == 0:
+        print("you need {} months to repay this credit!".format(str(round(months_count % 12))))
+    elif math.ceil(months_count) % 12 == 0:
+        print("You need {} years to repay this credit!".format(str(math.ceil(months_count/12))))
+    elif round(months_count % 12) > 1:
+        print("You need {} years and {} months to repay this credit!".
+              format(str(math.floor(months_count/12)), str(math.ceil(months_count % 12))))
 
-    if math.ceil(number_of_months) == 1:
-        print("It takes {} month to repay the credit".format(str(math.ceil(number_of_months))))
-    else:
-        print("It takes {} months to repay the credit".format(str(math.ceil(number_of_months))))
+elif menu == "a":
 
-elif months_or_payment == "p":
-    print("Enter count of months:")
-    number_of_months = int(input())
+    credit_principal = int(input("Enter credit principal:\n"))
+    periods_count = float(input("Enter count of periods:\n"))
+    credit_interest = float(input("Enter credit principal:\n"))
 
-    monthly_payment = principal / number_of_months
-    rounded_figure = math.ceil(monthly_payment)
+    interest = (1/12) * (credit_interest / 100)
+    a = (interest * math.pow(1 + interest, periods_count))/(math.pow(1 + interest, periods_count) - 1)
+    annuity = credit_principal * a
 
-    if monthly_payment == rounded_figure:
-        print("Your monthly payment = " + str(rounded_figure))
-    else:
-        last_payment = principal - (number_of_months - 1) * rounded_figure
-        print("Your monthly payment = {} with last month payment = {}.".format(str(rounded_figure), str(last_payment)))
+    print("Your annuity payment = " + str(math.ceil(annuity)))
+
+elif menu == "p":
+
+    monthly_payment = float(input("Enter monthly payment:\n"))
+    periods_count = float(input("Enter count of periods:\n"))
+    credit_interest = float(input("Enter credit principal:\n"))
+
+    interest = (1/12) * (credit_interest / 100)
+    a = (interest * math.pow(1 + interest, periods_count)) / (math.pow(1 + interest, periods_count) - 1)
+    principal = monthly_payment / a
+
+    print("Your credit principal = " + str(round(principal)))
